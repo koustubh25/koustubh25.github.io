@@ -294,6 +294,189 @@ function animateSkillBars() {
 }
 
 // ==============================================
+// AI TOOLS AGENT
+// ==============================================
+
+/**
+ * Generate AI Tools Agent response
+ */
+function generateAIToolsResponse() {
+    const data = window.portfolioData.aiTools;
+
+    let html = `
+        <h2 id="aiToolsTitle" style="margin-bottom: var(--spacing-lg);">🤖 AI Tools & Experiments</h2>
+        <p style="color: var(--color-text-secondary); margin-bottom: var(--spacing-xl);">
+            ${data.summary} • Demonstrating AI-native development workflows
+        </p>
+
+        <h3 style="color: var(--color-accent-primary); margin-bottom: var(--spacing-md);">Daily Workflow Tools</h3>
+    `;
+
+    data.dailyWorkflow.forEach(tool => {
+        html += `
+            <div class="content-card" style="border-left: 3px solid var(--color-accent-tertiary);">
+                <div class="card__header">
+                    <h3>${tool.icon} ${tool.tool}</h3>
+                </div>
+                <div class="card__body">
+                    <p style="color: var(--color-text-muted); margin-bottom: var(--spacing-sm);">
+                        ${tool.description} • <strong>${tool.frequency}</strong>
+                    </p>
+                    <p><strong>Use Cases:</strong></p>
+                    <ul>
+                        ${tool.useCases.map(useCase => `<li>${useCase}</li>`).join('')}
+                    </ul>
+                    ${tool.impact ? `<p style="color: var(--color-success); margin-top: var(--spacing-sm);"><strong>Impact:</strong> ${tool.impact}</p>` : ''}
+                </div>
+            </div>
+        `;
+    });
+
+    html += `
+        <h3 style="color: var(--color-accent-primary); margin: var(--spacing-xl) 0 var(--spacing-md);">Experiments & Projects</h3>
+    `;
+
+    data.experiments.forEach(experiment => {
+        const statusColor = {
+            'Active': 'var(--color-success)',
+            'Experimental': 'var(--color-warning)',
+            'Ongoing': 'var(--color-accent-primary)',
+            'Production': 'var(--color-success)'
+        }[experiment.status] || 'var(--color-text-secondary)';
+
+        html += `
+            <div class="content-card">
+                <div class="card__header">
+                    <h3>${experiment.icon} ${experiment.name}</h3>
+                </div>
+                <div class="card__body">
+                    <p style="color: ${statusColor}; margin-bottom: var(--spacing-sm);">
+                        <strong>Status:</strong> ${experiment.status}
+                    </p>
+                    <p>${experiment.description}</p>
+
+                    <p style="margin-top: var(--spacing-md);"><strong>Technologies:</strong></p>
+                    <div class="tech-tags">
+                        ${experiment.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                    </div>
+
+                    <p style="margin-top: var(--spacing-md);"><strong>Key Learnings:</strong></p>
+                    <ul>
+                        ${experiment.learnings.map(learning => `<li>${learning}</li>`).join('')}
+                    </ul>
+
+                    ${experiment.projects && experiment.projects.length > 0 ? `
+                        <p style="margin-top: var(--spacing-md);"><strong>Projects:</strong></p>
+                        <ul>
+                            ${experiment.projects.map(project => `<li>${project}</li>`).join('')}
+                        </ul>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+    });
+
+    return html;
+}
+
+// ==============================================
+// CONTACT AGENT
+// ==============================================
+
+/**
+ * Generate Contact Agent response
+ */
+function generateContactResponse() {
+    const data = window.portfolioData.contact;
+    const personal = window.portfolioData.personal;
+
+    return `
+        <h2 id="contactTitle" style="margin-bottom: var(--spacing-lg);">📧 Let's Connect</h2>
+        <p style="color: var(--color-text-secondary); margin-bottom: var(--spacing-xl);">
+            ${data.preferredContact}
+        </p>
+
+        <div class="content-card">
+            <div class="card__header">
+                <h3>Contact Information</h3>
+            </div>
+            <div class="card__body">
+                <div style="display: grid; gap: var(--spacing-md);">
+                    <div>
+                        <strong style="color: var(--color-accent-tertiary);">Email:</strong><br>
+                        <a href="mailto:${data.email}" style="color: var(--color-text-primary); text-decoration: none;">
+                            ${data.email}
+                        </a>
+                    </div>
+
+                    <div>
+                        <strong style="color: var(--color-accent-tertiary);">Phone:</strong><br>
+                        <a href="tel:${data.phone}" style="color: var(--color-text-primary); text-decoration: none;">
+                            ${data.phone}
+                        </a>
+                    </div>
+
+                    <div>
+                        <strong style="color: var(--color-accent-tertiary);">Location:</strong><br>
+                        ${data.location}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="card__header">
+                <h3>Professional Links</h3>
+            </div>
+            <div class="card__body">
+                <div style="display: grid; gap: var(--spacing-sm);">
+                    <a href="${data.linkedin}" target="_blank" rel="noopener noreferrer"
+                       style="display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-sm); background: var(--color-bg-elevated); border-radius: var(--radius-md); text-decoration: none; color: var(--color-text-primary); border-left: 3px solid #0077b5;">
+                        <span style="font-size: 1.5rem;">💼</span>
+                        <div>
+                            <strong>LinkedIn</strong><br>
+                            <span style="color: var(--color-text-secondary); font-size: var(--font-size-small);">Professional network</span>
+                        </div>
+                    </a>
+
+                    <a href="${data.github}" target="_blank" rel="noopener noreferrer"
+                       style="display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-sm); background: var(--color-bg-elevated); border-radius: var(--radius-md); text-decoration: none; color: var(--color-text-primary); border-left: 3px solid #333;">
+                        <span style="font-size: 1.5rem;">🐙</span>
+                        <div>
+                            <strong>GitHub</strong><br>
+                            <span style="color: var(--color-text-secondary); font-size: var(--font-size-small);">Code repositories</span>
+                        </div>
+                    </a>
+
+                    <a href="${data.blog}" target="_blank" rel="noopener noreferrer"
+                       style="display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-sm); background: var(--color-bg-elevated); border-radius: var(--radius-md); text-decoration: none; color: var(--color-text-primary); border-left: 3px solid var(--color-accent-tertiary);">
+                        <span style="font-size: 1.5rem;">📝</span>
+                        <div>
+                            <strong>Blog</strong><br>
+                            <span style="color: var(--color-text-secondary); font-size: var(--font-size-small);">Technical articles</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card" style="border: 2px solid var(--color-success);">
+            <div class="card__header">
+                <h3>Availability</h3>
+            </div>
+            <div class="card__body">
+                <p style="color: var(--color-success);">
+                    ✓ ${data.availability}
+                </p>
+                <p style="margin-top: var(--spacing-md); color: var(--color-text-secondary);">
+                    Interested in Platform Engineering, Cloud Architecture, Kubernetes, Go, and AI/ML Engineering roles.
+                </p>
+            </div>
+        </div>
+    `;
+}
+
+// ==============================================
 // RESPONSE ROUTER
 // ==============================================
 
@@ -306,6 +489,8 @@ function getAgentResponse(agentType, subType = null) {
         'experience': generateExperienceResponse,
         'projects': generateProjectsResponse,
         'skills': generateSkillsResponse,
+        'ai-tools': generateAIToolsResponse,
+        'contact': generateContactResponse,
 
         // Sub-responses
         'anz-details': generateANZDetails,
@@ -394,6 +579,8 @@ window.agentResponses = {
     experience: generateExperienceResponse,
     projects: generateProjectsResponse,
     skills: generateSkillsResponse,
+    aiTools: generateAIToolsResponse,
+    contact: generateContactResponse,
     anzDetails: generateANZDetails,
     idpDetails: generateIDPDetails,
     router: generateRouterResponse
