@@ -65,6 +65,9 @@
             <!-- Edges will be drawn here via JavaScript -->
         </svg>
 
+        <!-- Particles Container for flow animations -->
+        <div class="particles-container" id="particlesContainer"></div>
+
         <!-- Graph Nodes -->
         <div class="graph-nodes">
             <!-- Router Node (Entry Point) -->
@@ -213,81 +216,33 @@
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(updateLayoutInfo, 100);
         });
+    </script>
 
-        // Simple edge drawing (placeholder - will be enhanced in Edge & Animation task)
-        function drawEdges() {
-            const svg = document.getElementById('graphEdges');
+    <!-- Edge Animation System -->
+    <script src="js/edge-animations.js"></script>
 
-            // Only draw edges on desktop/tablet (not mobile)
-            if (window.innerWidth < 768) {
-                svg.innerHTML = '';
-                return;
-            }
+    <script>
+        // Enhanced node click handler with animation sequence
+        document.querySelectorAll('.node[role="button"]').forEach(node => {
+            node.addEventListener('click', () => {
+                const nodeName = node.getAttribute('data-node');
+                console.log('Node clicked:', nodeName);
 
-            svg.innerHTML = ''; // Clear existing edges
+                // Remove active from other nodes
+                document.querySelectorAll('.node').forEach(n => {
+                    n.classList.remove('node--active');
+                });
 
-            const nodes = {
-                router: document.querySelector('[data-node="router"]'),
-                experience: document.querySelector('[data-node="experience"]'),
-                projects: document.querySelector('[data-node="projects"]'),
-                skills: document.querySelector('[data-node="skills"]'),
-                aiTools: document.querySelector('[data-node="ai-tools"]'),
-                contact: document.querySelector('[data-node="contact"]'),
-                vectorStore: document.querySelector('[data-node="vector-store"]')
-            };
+                // Deactivate all edges
+                if (window.edgeSystem) {
+                    window.edgeSystem.deactivateAllEdges();
 
-            // Helper to get center coordinates of a node
-            function getCenter(node) {
-                const rect = node.getBoundingClientRect();
-                const containerRect = svg.getBoundingClientRect();
-                return {
-                    x: rect.left + rect.width / 2 - containerRect.left,
-                    y: rect.top + rect.height / 2 - containerRect.top
-                };
-            }
-
-            // Draw edges (simplified)
-            const connections = [
-                ['router', 'experience'],
-                ['router', 'projects'],
-                ['router', 'skills'],
-                ['experience', 'vectorStore'],
-                ['projects', 'vectorStore'],
-                ['skills', 'vectorStore'],
-                ['aiTools', 'vectorStore'],
-                ['contact', 'vectorStore']
-            ];
-
-            connections.forEach(([from, to]) => {
-                const fromNode = nodes[from];
-                const toNode = nodes[to];
-
-                if (!fromNode || !toNode) return;
-
-                const start = getCenter(fromNode);
-                const end = getCenter(toNode);
-
-                // Create simple line
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line.setAttribute('x1', start.x);
-                line.setAttribute('y1', start.y);
-                line.setAttribute('x2', end.x);
-                line.setAttribute('y2', end.y);
-                line.setAttribute('stroke', '#06b6d4');
-                line.setAttribute('stroke-width', '2');
-                line.setAttribute('stroke-opacity', '0.3');
-                line.setAttribute('stroke-dasharray', '5,5');
-
-                svg.appendChild(line);
+                    // Play animation sequence for this agent (except router and vector-store)
+                    if (nodeName !== 'router' && nodeName !== 'vector-store') {
+                        window.edgeSystem.playAgentSequence(nodeName);
+                    }
+                }
             });
-        }
-
-        // Draw edges after layout settles
-        setTimeout(drawEdges, 100);
-
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(drawEdges, 300);
         });
     </script>
 </body>

@@ -1534,6 +1534,329 @@ li {
 }
 
 /* Edges (Connections) */
+/* ============================================
+   EDGE & ANIMATION SYSTEM
+   ============================================ */
+
+/* SVG Edge Styling */
 .edge {
-    /* Styling to be added in edge animation task */
+    stroke-width: 2px;
+    stroke-dasharray: 4, 8;
+    opacity: 0.3;
+    transition: opacity var(--transition-base), stroke-width var(--transition-base);
+    pointer-events: none;
+}
+
+.edge--active {
+    opacity: 0.8;
+    stroke-width: 3px;
+    animation: edge-pulse 1.5s ease-in-out infinite;
+}
+
+/* Edge color by destination node type */
+.edge--experience {
+    stroke: var(--color-accent-secondary);
+}
+
+.edge--projects,
+.edge--router {
+    stroke: var(--color-accent-primary);
+}
+
+.edge--skills {
+    stroke: var(--color-success);
+}
+
+.edge--ai-tools {
+    stroke: #ec4899;
+}
+
+.edge--contact {
+    stroke: var(--color-warning);
+}
+
+.edge--vector-store {
+    stroke: var(--color-text-muted);
+}
+
+/* Edge Pulse Animation */
+@keyframes edge-pulse {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   PARTICLE SYSTEM
+   ============================================ */
+
+/* Particle Container */
+.particles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Individual Particle */
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: var(--radius-full);
+    opacity: 0;
+    pointer-events: none;
+    filter: drop-shadow(0 0 4px currentColor);
+}
+
+/* Particle colors by destination */
+.particle--experience {
+    background: var(--color-accent-secondary);
+    color: var(--color-accent-secondary);
+}
+
+.particle--projects,
+.particle--router {
+    background: var(--color-accent-primary);
+    color: var(--color-accent-primary);
+}
+
+.particle--skills {
+    background: var(--color-success);
+    color: var(--color-success);
+}
+
+.particle--ai-tools {
+    background: #ec4899;
+    color: #ec4899;
+}
+
+.particle--contact {
+    background: var(--color-warning);
+    color: var(--color-warning);
+}
+
+.particle--vector-store {
+    background: var(--color-text-muted);
+    color: var(--color-text-muted);
+}
+
+/* Particle flowing animation */
+.particle--flowing {
+    animation: particle-flow 1s linear forwards;
+}
+
+/* ============================================
+   DATA FLOW ANIMATIONS
+   ============================================ */
+
+/* Shimmer effect for active data transfer */
+@keyframes data-shimmer {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: -24;
+    }
+}
+
+.edge--transferring {
+    stroke-dasharray: 8, 4;
+    animation: data-shimmer 0.6s linear infinite;
+}
+
+/* Node data processing pulse */
+@keyframes data-processing {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.15);
+        opacity: 0.8;
+    }
+}
+
+.node--processing {
+    animation: data-processing 0.8s ease-in-out 3;
+}
+
+/* Vector Store special pulse (when retrieving data) */
+@keyframes vector-store-pulse {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(100, 116, 139, 0.2);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(100, 116, 139, 0.6);
+        transform: scale(1.08);
+    }
+}
+
+.node--vector-store.node--retrieving {
+    animation: vector-store-pulse 0.5s ease-in-out 3;
+}
+
+/* ============================================
+   RESPONSE PATH ANIMATION
+   ============================================ */
+
+/* Path from Vector Store to Response Panel */
+.response-path {
+    stroke: var(--color-accent-primary);
+    stroke-width: 2px;
+    stroke-dasharray: 8, 4;
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.response-path--active {
+    opacity: 0.6;
+    animation: data-shimmer 0.6s linear infinite;
+}
+
+/* ============================================
+   MOBILE SIMPLIFICATIONS
+   ============================================ */
+
+@media (max-width: 767px) {
+    /* Hide complex SVG edges on mobile */
+    .edge,
+    .particle,
+    .response-path {
+        display: none;
+    }
+
+    /* Use simple arrow indicators instead (already defined in graph layout) */
+    .node:not(:last-child)::after {
+        content: "↓";
+        display: block;
+        text-align: center;
+        font-size: 1.5rem;
+        color: var(--color-accent-tertiary);
+        margin-top: var(--spacing-sm);
+        opacity: 0.5;
+        transition: all var(--transition-base);
+    }
+
+    .node--active:not(:last-child)::after {
+        color: var(--color-accent-primary);
+        opacity: 1;
+        animation: mobile-arrow-pulse 1s ease-in-out infinite;
+    }
+}
+
+@keyframes mobile-arrow-pulse {
+    0%, 100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(4px);
+        opacity: 0.6;
+    }
+}
+
+/* ============================================
+   REDUCED MOTION SUPPORT
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    /* Disable particle animations */
+    .particle {
+        display: none;
+    }
+
+    /* Disable edge animations */
+    .edge,
+    .edge--active,
+    .edge--transferring {
+        animation: none;
+        stroke-dasharray: none;
+    }
+
+    /* Simple opacity changes instead of complex animations */
+    .edge--active {
+        opacity: 1;
+    }
+
+    .node--processing,
+    .node--retrieving {
+        animation: none;
+    }
+
+    /* Keep basic transitions but reduce duration */
+    * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ============================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+
+/* GPU Acceleration for particles */
+.particle,
+.edge {
+    transform: translateZ(0);
+    will-change: auto;
+}
+
+/* Only apply will-change when animating */
+.particle--flowing {
+    will-change: transform, opacity;
+}
+
+.edge--active {
+    will-change: opacity, stroke-width;
+}
+
+/* Remove will-change after animation completes */
+.particle--complete {
+    will-change: auto;
+}
+
+/* Tab visibility - pause animations */
+.page-hidden .particle,
+.page-hidden .edge--active {
+    animation-play-state: paused;
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+/* Ensure animations don't interfere with screen readers */
+.edge,
+.particle,
+.response-path {
+    aria-hidden: true;
+}
+
+/* Announce state changes to screen readers */
+.sr-only-live {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+[role="status"][aria-live="polite"] {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
 }
