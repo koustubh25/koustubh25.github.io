@@ -191,16 +191,50 @@ function setupEventListeners() {
     // Setup arrow key navigation
     setupArrowNavigation();
 
-    // Node clicks
+    // Node clicks and touch events
     document.querySelectorAll('.node[role="button"]').forEach(node => {
+        // Click event
         node.addEventListener('click', () => handleNodeClick(node));
 
+        // Keyboard event
         node.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 handleNodeClick(node);
             }
         });
+
+        // Touch events for better mobile experience
+        if ('ontouchstart' in window) {
+            let touchStartTime = 0;
+            let touchMoved = false;
+
+            node.addEventListener('touchstart', (e) => {
+                touchStartTime = Date.now();
+                touchMoved = false;
+                node.classList.add('node--pressed');
+            }, { passive: true });
+
+            node.addEventListener('touchmove', (e) => {
+                touchMoved = true;
+                node.classList.remove('node--pressed');
+            }, { passive: true });
+
+            node.addEventListener('touchend', (e) => {
+                node.classList.remove('node--pressed');
+
+                // Only trigger click if it was a tap (not a scroll/swipe)
+                const touchDuration = Date.now() - touchStartTime;
+                if (!touchMoved && touchDuration < 500) {
+                    e.preventDefault(); // Prevent double-tap zoom
+                    handleNodeClick(node);
+                }
+            }, { passive: false });
+
+            node.addEventListener('touchcancel', (e) => {
+                node.classList.remove('node--pressed');
+            }, { passive: true });
+        }
     });
 
     // Panel close triggers
