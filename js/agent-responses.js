@@ -552,17 +552,55 @@ function generateRouterResponse() {
 // ==============================================
 
 /**
+ * Agent capabilities definitions
+ */
+const AGENT_CAPABILITIES = {
+    'experience': {
+        tools: ['Timeline Renderer', 'Date Calculator', 'Role Analyzer'],
+        context: ['10 roles', '14 years', '4 countries'],
+        memory: ['Career progression', 'Key achievements', 'Tech transitions']
+    },
+    'projects': {
+        tools: ['Impact Analyzer', 'Tech Stack Mapper', 'Problem-Solution Parser'],
+        context: ['3 major projects', 'IDP focus', 'K8s & Go expertise'],
+        memory: ['Platform patterns', 'Team leadership', 'Cloud architecture']
+    },
+    'skills': {
+        tools: ['Proficiency Calculator', 'Category Organizer', 'Certification Tracker'],
+        context: ['Cloud native stack', '5 languages', '10+ frameworks'],
+        memory: ['Core competencies', 'Learning trajectory', 'Hands-on experience']
+    },
+    'ai-tools': {
+        tools: ['Usage Tracker', 'Experiment Logger', 'Workflow Analyzer'],
+        context: ['4 daily tools', '3+ experiments', 'RAG patterns'],
+        memory: ['Tool preferences', 'Success metrics', 'Integration patterns']
+    },
+    'contact': {
+        tools: ['Link Validator', 'Profile Aggregator', 'Availability Checker'],
+        context: ['LinkedIn', 'GitHub', 'Email', 'Blog'],
+        memory: ['Professional network', 'Open source contributions', 'Technical writing']
+    }
+};
+
+/**
  * Generate simulated RAG metadata for response
  */
 function generateResponseMetadata(agentType, content) {
     const tokenCount = Math.floor(content.length / 4);
+
+    const capabilities = AGENT_CAPABILITIES[agentType] || {
+        tools: ['Query Parser', 'Response Generator'],
+        context: ['Default context'],
+        memory: ['Session data']
+    };
 
     return {
         agent: agentType,
         source: 'resume_data.yaml',
         query: agentType,
         tokens: tokenCount,
-        retrievedAt: new Date().toISOString()
+        retrievedAt: new Date().toISOString(),
+        capabilities: capabilities
     };
 }
 

@@ -459,6 +459,28 @@ function updatePanelMetadata(panel, metadata) {
     const agentIcon = agentIcons[metadata.agent] || '📊';
     const agentName = metadata.agent.charAt(0).toUpperCase() + metadata.agent.slice(1).replace('-', ' ');
 
+    // Build capabilities HTML if available
+    let capabilitiesHTML = '';
+    if (metadata.capabilities) {
+        const caps = metadata.capabilities;
+        capabilitiesHTML = `
+            <div class="metadata__capabilities">
+                <div class="capability-section">
+                    <span class="capability-label">🛠️ Tools:</span>
+                    <span class="capability-value">${caps.tools.join(' • ')}</span>
+                </div>
+                <div class="capability-section">
+                    <span class="capability-label">📋 Context:</span>
+                    <span class="capability-value">${caps.context.join(' • ')}</span>
+                </div>
+                <div class="capability-section">
+                    <span class="capability-label">💾 Memory:</span>
+                    <span class="capability-value">${caps.memory.join(' • ')}</span>
+                </div>
+            </div>
+        `;
+    }
+
     metadataContainer.innerHTML = `
         <div class="metadata__item">
             <span class="metadata__label">Agent:</span>
@@ -476,6 +498,7 @@ function updatePanelMetadata(panel, metadata) {
             <span class="metadata__label">Tokens:</span>
             <span class="metadata__value">${metadata.tokens || 0}</span>
         </div>
+        ${capabilitiesHTML}
     `;
 }
 
