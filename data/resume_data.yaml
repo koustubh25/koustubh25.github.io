@@ -1,0 +1,245 @@
+# Resume Data - Koustubh Gaikwad
+# Edit this file to update your resume, then run generate_pdf.py
+
+name: "KOUSTUBH GAIKWAD"
+title: "SENIOR CLOUD ENGINEER"
+location: "Melbourne, Victoria"
+phone: "+61435041690"
+email: "koustubh_gaikwad@yahoo.com"
+citizenship: "Australian Citizen"
+
+summary: |
+  Over the past decade, I've worked across India, USA, Japan, and Australia, contributing to large-scale technology transformations. At ANZx, I've served as Acting Tech Lead and Senior Cloud Engineer, focused on deep technical delivery. My work centres on GCP, Kubernetes, Golang, Infrastructure-as-Code (IaC) tooling and API enablement. Before joining ANZx, I was a Senior Consultant at Momenton Pty. Ltd.
+
+  In my previous role as a Senior DevOps Engineer at Southbank Software Pty Ltd, a blockchain startup based in Melbourne, I was responsible for managing GCP and Azure cloud infrastructure. 
+
+  My previous work experience includes managing Bitcoin/Ethereum node infrastructure and developing decentralized applications on the Ethereum Blockchain for a Tokyo-based company specializing in Blockchain Technology. Additionally, I have worked as an "Expert Software Engineer" for a leading ERP company in Tokyo, Japan, where I performed a range of Full Stack Web Development activities.
+
+  I actively explore emerging technologies including AI-assisted development workflows and local LLM deployments.
+
+skills:
+  - Google Cloud Platform
+  - Full-Stack Web Development
+  - Kubernetes (GKE)
+  - DevOps
+  - Terraform
+  - Golang
+  - Platform Engineering
+  - API Platform and Development
+
+experience:
+  - company: "ANZ BANK (ANZx)"
+    location: "Melbourne, Victoria"
+    title: "Senior Cloud Engineer (following org restructure)"
+    dates: "July 2025 - Present"
+    description:
+      - "Maintain and evolve ANZx's Internal Developer Platform (Go-based CLI) and Kubernetes Operators supporting API and application deployments."
+      - "Design reusable API and service onboarding patterns, ensuring alignment with ANZx security, tenancy, and network standards."
+
+  - company: "ANZ BANK (ANZx)"
+    location: "Melbourne, Victoria"
+    title: "Technical Lead (Acting)"
+    dates: "August 2024 - July 2025"
+    description:
+      - "As a part of the Cloud Foundations team, take full ownership to write and maintain patterns for the use of various GCP services used within ANZx teams"
+      - "Maintain and use Kubernetes Config Connector to manage GCP resources within the bank and work with google team in order to adapt it to the bank's requirements"
+      - "Write, maintain and deploy some in-house Kubernetes Operators in Golang"
+      - "Defined SLOs and SLIs for Kubernetes Config Connector availability using GCP log-based metrics and Nobl9, filtering out client-side errors (4xx) to reduce false positives and focus on actionable 5xx errors"
+      - "Evaluate use of tools that could possibly add value. Currently looking at crossplane."
+      - "Work closely with product owners and delivery leads in order to formulate the roadmap"
+      - "Work closely with Senior and Junior Engineers and provide mentorship"
+
+  - company: "ANZ BANK (ANZx)"
+    location: "Melbourne, Victoria"
+    title: "Senior Cloud Engineer"
+    dates: "November 2022 - July 2024"
+    description:
+      - "Played a key role in the 'Simplifying Life' initiative to simplify the onboarding process for application teams on infrastructure platforms. This was achieved by creating effective automation solutions."
+      - "Designed a mono-repository structure specifically tailored for GitOps implementation. The structure was optimised to allow for the deployment of Kubernetes and Cloud (GCP) resources in a declarative manner (KRM) preserving tenancy boundaries."
+      - "Configured Kubernetes Config Connector (KCC) for clusters, enabling them to leverage KRM for deploying GCP infrastructure resources."
+      - "Actively participated in the development of a Go-based command-line interface (CLI) tool which is their Internal Developer Platform (IDP)"
+    tools:
+      - "Google Cloud Platform"
+      - "Kubernetes Config Connector (KCC)"
+      - "FluxCD"
+      - "Golang"
+    accomplishments:
+      - "Made a significant contribution to the 'Simplifying Life' initiative."
+
+  - company: "Momenton PTY LTD."
+    location: "Melbourne, Victoria"
+    title: "Senior Consultant - DevOps and Cloud Engineer"
+    dates: "August 2020 - October 2022"
+    description:
+      - "ANZ was the consulting client. I worked as part of the 'Platform Foundations' team at ANZ. My primary responsibilities included managing GCP resources using Terraform, as well as working closely with MuleSoft (SaaS Integration Platform) to implement ANZx-MuleSoft integration."
+      - "Collaborated with solution architects and security partners to design and implement secure API gateway patterns."
+      - "Implementing security controls as recommended by Security Partners"
+      - "Overseeing the lifecycle of GCP resources using Terraform"
+      - "Managing the CI/CD of applications in the Kubernetes Cluster"
+      - "Developing applications using Go"
+    tools:
+      - "GCP"
+      - "Kubernetes"
+      - "Docker"
+      - "Terraform"
+      - "Golang"
+      - "Harness (CI/CD tool)"
+    accomplishments:
+      - "Developed a Terraform Provider for the creation and management of MuleSoft CloudHub resources from the ground up."
+      - "Created and executed the first CI/CD pipelines for MuleSoft within the ANZx region."
+
+  - company: "Southbank Software"
+    location: "Melbourne, Victoria"
+    title: "Cloud DevOps and SRE"
+    dates: "August 2018 - July 2020"
+    description:
+      - "Responsibilities include development and maintenance of Cloud infrastructure for a Blockchain based application hosted on Kubernetes in GCP."
+      - "Creating and maintaining Cloud Infrastructure"
+      - "Configuring and maintaining CI/CD pipelines"
+      - "Responsible for the release process"
+      - "Occasionally write node.js based applications"
+      - "Maintaining Blockchain wallets (own)"
+    tools:
+      - "GCP"
+      - "Azure"
+      - "Kubernetes"
+      - "Istio"
+      - "Helm"
+      - "Docker"
+      - "FluxCD"
+      - "Golang"
+    accomplishments:
+      - "Designed and implemented Infrastructure to be hosted on GCP from scratch"
+      - "Ensured high availability with relevant monitoring and alerting"
+      - "Migration of persistent volumes on GCP to Azure in Kubernetes using Velero"
+
+  - company: "Indiesquare Inc."
+    location: "Tokyo, Japan"
+    title: "Ethereum Blockchain Developer (Remote part-time)"
+    dates: "July 2018 - December 2019"
+    description:
+      - "Worked on Ethereum Blockchain Development"
+      - "Creating Decentralized applications (Dapps)"
+      - "Maintaining Blockchain and application Infrastructure on Cloud"
+    tools:
+      - "Google Cloud Platform"
+      - "Kubernetes"
+      - "Docker"
+      - "Solidity"
+      - "JavaScript"
+      - "Linux"
+    accomplishments:
+      - "Built a solid platform over cloud for running public/private blockchains"
+      - "Created novel Dapps over Ethereum Blockchain"
+
+  - company: "Works Applications Co. Ltd"
+    location: "Tokyo, Japan"
+    title: "Expert Software Development Engineer"
+    dates: "October 2016 - July 2018"
+    description:
+      - "Developed and maintained Works Applications' 'HUE' ERP software, which follows the Microservices Architecture (MSA)"
+      - "Conducted Full-stack Web Development to design software and services, alongside Cloud Engineering for microservices"
+      - "Supervised the work of an offshore team of four developers, acting as their mentor"
+      - "Managed Linux server infrastructure for a team of fifteen developers"
+      - "Oversaw DevOps tasks to create a strong testing (pre-evaluation) environment for team members to use."
+    tools:
+      - "Java Spring Framework"
+      - "Google closure JS library"
+      - "Nginx"
+      - "Apache Cassandra"
+      - "Elasticsearch"
+      - "Apache Kafka"
+      - "Linux"
+    accomplishments:
+      - "Created an internal framework for WebSocket implementation, enabling real-time data updates through the use of an external queue."
+      - "Served as the technical lead for the team's pre-evaluation environment, which greatly improved the development and testing process."
+      - "The pre-evaluation environment featured automatic building and deployment of code in a Kubernetes cluster, allowing each developer to push updates to their own feature branch."
+
+  - company: "Eviry Inc"
+    location: "Tokyo, Japan"
+    title: "Web Engineer"
+    dates: "October 2015 - September 2016"
+    description:
+      - "Developed and maintained 'Millvi', a product that offers video encoding and delivery services."
+      - "Programmed the web service portal utilising PHP and Backbone.js."
+      - "Managed and maintained the Linux server infrastructure for video streaming services."
+      - "Successfully integrated HTTP Live Streaming (HLS) through 'hls.js', an open-source library."
+    tools:
+      - "PHP"
+      - "Backbone.js"
+      - "MySQL"
+      - "FFmpeg"
+    accomplishments:
+      - "Successfully designed the new architecture of the Video Streaming service by adopting a queueing system, leading to a more efficient implementation process"
+      - "Introduced Data Science concepts to optimise implementation costs, enabling dynamic start and stop servers on the cloud."
+
+  - company: "Cisco Systems"
+    location: "San Jose, California, USA"
+    title: "Software Engineering Intern"
+    dates: "August 2013 - July 2014"
+    description:
+      - "Full-time intern for a year in the Video Collaboration Group at Cisco Systems."
+      - "Blended Services - HTML5 based cross-platform Web Application: Built a PoC with personalized video content from Facebook, Dailymotion, Youtube, Soundcloud and cable TV compatible across various devices."
+      - "Built a separate Identity Service using OAuth 2.0 protocol to obtain and store access tokens from Social Media Services"
+      - "Built UI using Backbone.js - purely HTML5 based which allowed it to run across a variety of devices"
+      - "Evaluation of Public Cloud Stacks: Performed various benchmarking tests to evaluate AWS and Rackspace performance"
+    tools:
+      - "Node.js - Express Framework"
+      - "Backbone.js"
+      - "MySQL"
+      - "FFmpeg"
+      - "Ubuntu Linux"
+      - "Rackspace Cloud"
+      - "Amazon Web Services"
+    accomplishments:
+      - "PoC work was acknowledged by several senior executives at Cisco and served as a good starting point for the development of the actual commercial product"
+      - "Benchmarking results helped Cisco team set the pricing model for their private cloud 'Nimbus'"
+
+  - company: "Persistent Systems"
+    location: "Pune, Maharashtra, India"
+    title: "Software Engineer"
+    dates: "June 2010 - June 2012"
+    description:
+      - "Worked on a web based messaging product by a client company Openwave, similar to G Suite by Google Inc"
+      - "Worked on configuration and maintenance of external email accounts within the application"
+      - "Integrated Facebook and Twitter widgets within the application"
+    tools:
+      - "Java Spring Framework"
+      - "JQuery"
+    accomplishments:
+      - "Several times awarded as 'The Employee of the Month' during the period"
+      - "Participated in several hackathons within the company"
+
+education:
+  - institution: "Keio University"
+    location: "Tokyo, Japan"
+    degree: "Master of Science: Computer Science"
+    date: "August 2015"
+    focus:
+      - "Machine Learning"
+      - "Natural Language Processing"
+      - "Computer Networks"
+
+  - institution: "Pune University"
+    location: "Pune, India"
+    degree: "Bachelor of Science: Computer Science"
+    date: "June 2010"
+    focus:
+      - "Data Structures and Algorithms"
+      - "Software Engineering"
+
+certifications:
+  - "Google Cloud Professional Cloud Architect | Jan 2024"
+  - "Google Cloud Professional Cloud Network Engineer | Jan 2024"
+  - "Certified Kubernetes Administrator | July 2020"
+  - "English Session Encouragement Award (IEICE Japan) | September 2015"
+  - "Japanese Government Scholarship - Global 30 | September 2012"
+  - "Cisco Certified Network Associate | July 2010"
+
+publications:
+  - "Scalable and Cost-effective Live Video Encoding in Cloud, Institute of Electronics, Information and Communication Engineers, Japan | March 2015"
+
+links:
+  linkedin: "https://www.linkedin.com/in/koustubhg/"
+  blog: "https://dev.to/koustubh"
+  github: "https://github.com/koustubh25"
