@@ -3,55 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Koustubh Gaikwad - Platform Engineer specializing in Kubernetes, Go, and GCP. Meet Hachi, my AI assistant!">
-    <title>Koustubh Gaikwad - Platform Engineer</title>
+    <meta name="description" content="Koustubh Gaikwad - Senior Cloud Engineer specializing in Kubernetes, Go, and GCP. AI Enthusiast working with LangGraph, Claude Code, and Gemini CLI.">
+    <meta name="keywords" content="Cloud Engineer, Platform Engineering, Kubernetes, Go, GCP, AI, LangGraph, Claude Code">
+    <meta name="author" content="Koustubh Gaikwad">
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Koustubh Gaikwad - Platform Engineer">
+    <meta property="og:description" content="AI Agent Architecture Portfolio - Interactive exploration of experience, projects, and skills">
+    <meta property="og:url" content="https://koustubh25.github.io">
+
+    <title>Koustubh Gaikwad - Platform Engineer | AI Enthusiast</title>
     <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Preload critical fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <h1 class="header__name">KOUSTUBH GAIKWAD</h1>
-        <p class="header__title">Platform Engineer · Melbourne</p>
+    <!-- Skip to Main Content (Accessibility) -->
+    <a href="#mainContent" class="skip-link">Skip to main content</a>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="header__content">
+            <h1 class="header__name">KOUSTUBH GAIKWAD</h1>
+            <p class="header__title">Senior Cloud Engineer · AI Enthusiast</p>
+            <p class="header__tagline">Platform Engineering • Kubernetes • Go • GCP</p>
+        </div>
+
+        <nav class="header__nav" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/koustubhg/" target="_blank" rel="noopener noreferrer" class="header__link" aria-label="LinkedIn Profile">
+                <span aria-hidden="true">in</span>
+                <span class="sr-only">LinkedIn</span>
+            </a>
+            <a href="https://github.com/koustubh25" target="_blank" rel="noopener noreferrer" class="header__link" aria-label="GitHub Profile">
+                <span aria-hidden="true">gh</span>
+                <span class="sr-only">GitHub</span>
+            </a>
+            <a href="https://dev.to/koustubh" target="_blank" rel="noopener noreferrer" class="header__link" aria-label="Blog">
+                <span aria-hidden="true">blog</span>
+                <span class="sr-only">Blog</span>
+            </a>
+            <a href="mailto:koustubh.gaikwad@gmail.com" class="header__link" aria-label="Email">
+                <span aria-hidden="true">mail</span>
+                <span class="sr-only">Email</span>
+            </a>
+        </nav>
     </header>
 
-    <!-- Main Chat Container -->
-    <main class="chat-container">
-        <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-label="Chat conversation">
-            <!-- Messages will be inserted here dynamically -->
+    <!-- Agent Workflow Instructions -->
+    <section class="instructions" id="mainContent">
+        <div class="instructions__content">
+            <h2 class="instructions__title">AI Agent Architecture Portfolio</h2>
+            <p class="instructions__text">
+                Click an agent below to explore my experience, projects, and skills.
+                This interactive portfolio demonstrates agent-based workflows inspired by
+                <strong>LangGraph</strong> and RAG (Retrieval-Augmented Generation).
+            </p>
+            <div class="instructions__legend">
+                <span class="legend__item">
+                    <span class="legend__icon">🎯</span> Router: Entry point
+                </span>
+                <span class="legend__item">
+                    <span class="legend__icon">💼📧🚀⚡🤖</span> Agents: Specialized handlers
+                </span>
+                <span class="legend__item">
+                    <span class="legend__icon">📊</span> Vector Store: Data source
+                </span>
+            </div>
         </div>
+    </section>
 
-        <!-- Suggestion Chips -->
-        <div class="chips-container" id="chipsContainer" aria-label="Quick navigation options">
-            <!-- Chips will be inserted here dynamically -->
-        </div>
+    <!-- Main Graph Container -->
+    <main class="graph-container" role="main" aria-label="Agent workflow graph">
+        <!-- SVG for Edges (connections between nodes) -->
+        <svg class="graph-edges" id="graphEdges" aria-hidden="true">
+            <!-- Edges will be drawn here via JavaScript -->
+        </svg>
 
-        <!-- Text Input (Secondary) -->
-        <div class="input-container">
-            <input
-                type="text"
-                class="input-field"
-                id="inputField"
-                placeholder="Or ask about skills, experience, projects..."
-                aria-label="Type your question"
-            />
-            <button class="input-submit" id="submitButton" aria-label="Send message">➤</button>
+        <!-- Particles Container for flow animations -->
+        <div class="particles-container" id="particlesContainer" aria-hidden="true"></div>
+
+        <!-- Graph Nodes -->
+        <div class="graph-nodes">
+            <!-- Router Node (Entry Point) -->
+            <div class="node node--router"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Router Agent - What would you like to explore?"
+                 data-node="router">
+                <div class="node__icon" aria-hidden="true">🎯</div>
+                <div class="node__text">
+                    <div class="node__label">Router</div>
+                    <div class="node__subtitle">What would you like to explore?</div>
+                </div>
+            </div>
+
+            <!-- Experience Agent -->
+            <div class="node node--experience"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Experience Agent - 14 years across 4 countries"
+                 data-node="experience">
+                <div class="node__icon" aria-hidden="true">💼</div>
+                <div class="node__text">
+                    <div class="node__label">Experience</div>
+                    <div class="node__subtitle">14 years across 4 countries</div>
+                </div>
+            </div>
+
+            <!-- Projects Agent -->
+            <div class="node node--projects"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Projects Agent - Platform engineering and infrastructure"
+                 data-node="projects">
+                <div class="node__icon" aria-hidden="true">🚀</div>
+                <div class="node__text">
+                    <div class="node__label">Projects</div>
+                    <div class="node__subtitle">Platform eng + Infrastructure</div>
+                </div>
+            </div>
+
+            <!-- Skills Agent -->
+            <div class="node node--skills"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Skills Agent - Cloud, Platform, Languages"
+                 data-node="skills">
+                <div class="node__icon" aria-hidden="true">⚡</div>
+                <div class="node__text">
+                    <div class="node__label">Skills</div>
+                    <div class="node__subtitle">Cloud • Platform • Languages</div>
+                </div>
+            </div>
+
+            <!-- AI Tools Agent -->
+            <div class="node node--ai-tools"
+                 role="button"
+                 tabindex="0"
+                 aria-label="AI Tools Agent - Daily workflow and experiments"
+                 data-node="ai-tools">
+                <div class="node__icon" aria-hidden="true">🤖</div>
+                <div class="node__text">
+                    <div class="node__label">AI Tools</div>
+                    <div class="node__subtitle">Daily workflow & experiments</div>
+                </div>
+            </div>
+
+            <!-- Contact Agent -->
+            <div class="node node--contact"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Contact Agent - Let's connect"
+                 data-node="contact">
+                <div class="node__icon" aria-hidden="true">📧</div>
+                <div class="node__text">
+                    <div class="node__label">Contact</div>
+                    <div class="node__subtitle">Let's connect</div>
+                </div>
+            </div>
+
+            <!-- Vector Store (Data Source) -->
+            <div class="node node--vector-store"
+                 role="presentation"
+                 aria-label="Vector Store - resume_data.yaml"
+                 data-node="vector-store">
+                <div class="node__icon" aria-hidden="true">📊</div>
+                <div class="node__text">
+                    <div class="node__label">Vector Store</div>
+                    <div class="node__subtitle">resume_data.yaml</div>
+                </div>
+            </div>
         </div>
     </main>
 
+    <!-- Backdrop for Panel -->
+    <div class="panel-backdrop" aria-hidden="true"></div>
+
+    <!-- Response Panel -->
+    <aside class="response-panel" id="responsePanel" role="dialog" aria-labelledby="panelTitle" aria-hidden="true" data-agent="">
+        <div class="panel__header">
+            <button class="panel__back" aria-label="Back to Graph">← Back to Graph</button>
+            <div class="panel__actions">
+                <button class="panel__minimize" aria-label="Minimize panel">−</button>
+                <button class="panel__close" aria-label="Close panel">✕</button>
+            </div>
+        </div>
+
+        <div class="panel__metadata">
+            <!-- Metadata will be populated dynamically -->
+        </div>
+
+        <div class="panel__content" id="panelContent">
+            <!-- Content will be populated dynamically -->
+        </div>
+    </aside>
+
     <!-- Footer -->
-    <footer class="footer">
-        <nav class="footer__links">
-            <a href="https://www.linkedin.com/in/koustubhg/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <span class="footer__separator">·</span>
-            <a href="https://github.com/koustubh25" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <span class="footer__separator">·</span>
-            <a href="https://dev.to/koustubh" target="_blank" rel="noopener noreferrer">Blog</a>
-        </nav>
+    <footer class="page-footer">
+        <div class="footer__content">
+            <p class="footer__text">
+                Built with vanilla JavaScript • Inspired by LangGraph agent workflows •
+                <a href="https://github.com/koustubh25/koustubh25.github.io" target="_blank" rel="noopener noreferrer" class="footer__link">View Source</a>
+            </p>
+            <p class="footer__copyright">
+                © 2026 Koustubh Gaikwad • Melbourne, Australia
+            </p>
+        </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="js/data.js"></script>
-    <script src="js/responses.js"></script>
-    <script src="js/app.js"></script>
+    <!-- Load Portfolio Data -->
+    <script src="js/portfolio-data.js"></script>
+
+    <!-- Load Agent Response Generators -->
+    <script src="js/agent-responses.js"></script>
+
+    <!-- Load Edge Animation System -->
+    <script src="js/edge-animations.js"></script>
+
+    <!-- Load Main Application Logic -->
+    <script src="js/main-app.js"></script>
 </body>
 </html>

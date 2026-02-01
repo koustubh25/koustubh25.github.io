@@ -61,6 +61,123 @@ function updateLayout() {
 }
 
 // ==============================================
+// KEYBOARD NAVIGATION
+// ==============================================
+
+/**
+ * Track keyboard usage for enhanced focus styling
+ */
+function setupKeyboardTracking() {
+    // Detect when Tab key is used
+    function handleFirstTab(e) {
+        if (e.key === 'Tab') {
+            document.body.classList.add('user-is-tabbing');
+            window.removeEventListener('keydown', handleFirstTab);
+            window.addEventListener('mousedown', handleMouseDown);
+        }
+    }
+
+    function handleMouseDown() {
+        document.body.classList.remove('user-is-tabbing');
+        window.removeEventListener('mousedown', handleMouseDown);
+        window.addEventListener('keydown', handleFirstTab);
+    }
+
+    window.addEventListener('keydown', handleFirstTab);
+}
+
+/**
+ * Setup focus trap for response panel
+ */
+function setupFocusTrap(panel) {
+    const focusableElements = panel.querySelectorAll(
+        'button, a, input, textarea, select, [tabindex]:not([tabindex="-1"])'
+    );
+
+    if (focusableElements.length === 0) return;
+
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    // Handle Tab and Shift+Tab
+    panel.addEventListener('keydown', (e) => {
+        if (e.key !== 'Tab') return;
+
+        if (e.shiftKey) {
+            // Shift + Tab
+            if (document.activeElement === firstElement) {
+                e.preventDefault();
+                lastElement.focus();
+            }
+        } else {
+            // Tab
+            if (document.activeElement === lastElement) {
+                e.preventDefault();
+                firstElement.focus();
+            }
+        }
+    });
+}
+
+/**
+ * Get all nodes as an array
+ */
+function getAllNodes() {
+    return Array.from(document.querySelectorAll('.node[role="button"]'));
+}
+
+/**
+ * Get currently focused node
+ */
+function getCurrentNodeIndex() {
+    const nodes = getAllNodes();
+    return nodes.findIndex(node => node === document.activeElement);
+}
+
+/**
+ * Focus node by index
+ */
+function focusNodeByIndex(index) {
+    const nodes = getAllNodes();
+    if (index >= 0 && index < nodes.length) {
+        nodes[index].focus();
+    }
+}
+
+/**
+ * Setup arrow key navigation between nodes
+ */
+function setupArrowNavigation() {
+    document.addEventListener('keydown', (e) => {
+        // Only handle arrow keys when panel is closed and a node has focus
+        if (appState.panelOpen) return;
+
+        const currentIndex = getCurrentNodeIndex();
+        if (currentIndex === -1) return;
+
+        let newIndex = currentIndex;
+
+        switch(e.key) {
+            case 'ArrowRight':
+            case 'ArrowDown':
+                e.preventDefault();
+                newIndex = (currentIndex + 1) % getAllNodes().length;
+                break;
+            case 'ArrowLeft':
+            case 'ArrowUp':
+                e.preventDefault();
+                newIndex = currentIndex - 1;
+                if (newIndex < 0) newIndex = getAllNodes().length - 1;
+                break;
+            default:
+                return;
+        }
+
+        focusNodeByIndex(newIndex);
+    });
+}
+
+// ==============================================
 // EVENT LISTENERS
 // ==============================================
 
@@ -68,6 +185,12 @@ function updateLayout() {
  * Setup all event listeners
  */
 function setupEventListeners() {
+    // Track keyboard usage for focus styling
+    setupKeyboardTracking();
+
+    // Setup arrow key navigation
+    setupArrowNavigation();
+
     // Node clicks
     document.querySelectorAll('.node[role="button"]').forEach(node => {
         node.addEventListener('click', () => handleNodeClick(node));
@@ -252,6 +375,9 @@ async function displayResponsePanel(agentType) {
     backdrop.classList.add('active');
     panel.classList.add('active');
     panel.setAttribute('aria-hidden', 'false');
+
+    // Setup focus trap for keyboard navigation
+    setupFocusTrap(panel);
 
     // Focus first focusable element
     await wait(100);
