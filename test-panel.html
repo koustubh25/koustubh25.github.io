@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Response Panel Test - AI Agent Architecture</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            padding: var(--spacing-lg);
+        }
+        .test-controls {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        .test-controls button {
+            background: var(--color-accent-tertiary);
+            color: var(--color-bg-deep);
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            font-family: var(--font-heading);
+            font-size: var(--font-size-base);
+            cursor: pointer;
+            margin: 0 var(--spacing-xs);
+            transition: all var(--transition-fast);
+        }
+        .test-controls button:hover {
+            background: var(--color-accent-primary);
+            transform: scale(1.05);
+        }
+        .test-section {
+            margin-bottom: var(--spacing-xl);
+        }
+        .test-section h2 {
+            margin-bottom: var(--spacing-md);
+            color: var(--color-accent-primary);
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; margin-bottom: 2rem;">Response Panel Component Test</h1>
+
+    <div class="test-controls">
+        <button onclick="openPanel('experience')">Open Experience Panel</button>
+        <button onclick="openPanel('projects')">Open Projects Panel</button>
+        <button onclick="openPanel('skills')">Open Skills Panel</button>
+        <button onclick="closePanel()">Close Panel</button>
+    </div>
+
+    <div class="test-section">
+        <h2>Panel Controls</h2>
+        <ul style="color: var(--color-text-secondary);">
+            <li>Click buttons above to open different panels</li>
+            <li>Click backdrop to close</li>
+            <li>Press Escape to close</li>
+            <li>Click minimize button to collapse</li>
+            <li>Click "Back to Graph" or close (✕) button</li>
+        </ul>
+    </div>
+
+    <!-- Backdrop -->
+    <div class="panel-backdrop" id="panelBackdrop" onclick="closePanel()"></div>
+
+    <!-- Experience Panel -->
+    <div class="response-panel" id="experiencePanel" role="dialog" aria-labelledby="experienceTitle" aria-hidden="true" data-agent="experience">
+        <div class="panel__header">
+            <button class="panel__back" onclick="closePanel()">← Back to Graph</button>
+            <div class="panel__actions">
+                <button class="panel__minimize" onclick="toggleMinimize('experiencePanel')" aria-label="Minimize">−</button>
+                <button class="panel__close" onclick="closePanel()" aria-label="Close">✕</button>
+            </div>
+        </div>
+
+        <div class="panel__metadata">
+            <div class="metadata__item">
+                <span class="metadata__label">Agent:</span>
+                <span class="metadata__value">💼 Experience</span>
+            </div>
+            <div class="metadata__item">
+                <span class="metadata__label">Retrieved from:</span>
+                <span class="metadata__value">resume_data.yaml</span>
+            </div>
+            <div class="metadata__item">
+                <span class="metadata__label">Query:</span>
+                <span class="metadata__value">"experience"</span>
+            </div>
+            <div class="metadata__item">
+                <span class="metadata__label">Tokens:</span>
+                <span class="metadata__value">1,247</span>
+            </div>
+        </div>
+
+        <div class="panel__content">
+            <h2 id="experienceTitle" style="margin-bottom: var(--spacing-lg);">💼 Experience Timeline</h2>
+
+            <div class="timeline">
+                <div class="timeline__item">
+                    <div class="timeline__date">2022 - Present</div>
+                    <div class="timeline__title">Senior Cloud Engineer</div>
+                    <div class="timeline__description">
+                        <strong>Company:</strong> ANZ Bank (ANZx)<br>
+                        <strong>Location:</strong> Melbourne, Australia<br>
+                        <strong>Focus:</strong> Internal Developer Platform, Kubernetes Operators (Go), GCP Architecture
+                    </div>
+                </div>
+
+                <div class="timeline__item">
+                    <div class="timeline__date">2020 - 2022</div>
+                    <div class="timeline__title">Tech Lead - Acting</div>
+                    <div class="timeline__description">
+                        <strong>Company:</strong> ANZ Bank (ANZx)<br>
+                        <strong>Location:</strong> Melbourne, Australia<br>
+                        <strong>Focus:</strong> Platform Engineering, Team Leadership
+                    </div>
+                </div>
+
+                <div class="timeline__item">
+                    <div class="timeline__date">2015 - 2020</div>
+                    <div class="timeline__title">Senior Software Engineer</div>
+                    <div class="timeline__description">
+                        <strong>Company:</strong> Rakuten Inc.<br>
+                        <strong>Location:</strong> Tokyo, Japan<br>
+                        <strong>Focus:</strong> E-commerce Platform, Microservices
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects Panel -->
+    <div class="response-panel" id="projectsPanel" role="dialog" aria-labelledby="projectsTitle" aria-hidden="true" data-agent="projects">
+        <div class="panel__header">
+            <button class="panel__back" onclick="closePanel()">← Back to Graph</button>
+            <div class="panel__actions">
+                <button class="panel__minimize" onclick="toggleMinimize('projectsPanel')" aria-label="Minimize">−</button>
+                <button class="panel__close" onclick="closePanel()" aria-label="Close">✕</button>
+            </div>
+        </div>
+
+        <div class="panel__metadata">
+            <div class="metadata__item">
+                <span class="metadata__label">Agent:</span>
+                <span class="metadata__value">🚀 Projects</span>
+            </div>
+            <div class="metadata__item">
+                <span class="metadata__label">Retrieved from:</span>
+                <span class="metadata__value">resume_data.yaml</span>
+            </div>
+            <div class="metadata__item">
+                <span class="metadata__label">Query:</span>
+                <span class="metadata__value">"projects"</span>
+            </div>
+            <div class="metadata__item">
+                <span class="metadata__label">Tokens:</span>
+                <span class="metadata__value">2,156</span>
+            </div>
+        </div>
+
+        <div class="panel__content">
+            <h2 id="projectsTitle" style="margin-bottom: var(--spacing-lg);">🚀 Key Projects</h2>
+
+            <div class="content-card">
+                <div class="card__header">
+                    <h3>🚀 Internal Developer Platform (IDP)</h3>
+                </div>
+                <div class="card__body">
+                    <p><strong>Problem:</strong> Developers spent 40% of time on infrastructure setup and deployment. Inconsistent environments led to "works on my machine" issues.</p>
+                    <p><strong>Solution:</strong> Built Go CLI tool that automates environment provisioning on GCP. Integrated with Kubernetes operators for self-service deployments.</p>
+                    <p><strong>Impact:</strong> Reduced deployment time from hours to minutes. Improved developer productivity by 35%. Standardized 200+ microservices.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Go</span>
+                        <span class="tech-tag">Kubernetes</span>
+                        <span class="tech-tag">GCP</span>
+                        <span class="tech-tag">Terraform</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card__header">
+                    <h3>🔧 Custom Terraform Provider</h3>
+                </div>
+                <div class="card__body">
+                    <p><strong>Problem:</strong> Existing Terraform providers didn't support custom internal APIs. Manual resource management was error-prone.</p>
+                    <p><strong>Solution:</strong> Developed custom Terraform provider in Go. Integrated with internal platform APIs for declarative infrastructure management.</p>
+                    <p><strong>Impact:</strong> Enabled infrastructure-as-code for internal services. Reduced configuration drift. Improved audit compliance.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Go</span>
+                        <span class="tech-tag">Terraform</span>
+                        <span class="tech-tag">REST APIs</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card__header">
+                    <h3>☸️ Kubernetes Operators</h3>
+                </div>
+                <div class="card__body">
+                    <p><strong>Problem:</strong> Complex application lifecycle management required manual intervention. Scaling and updates were time-consuming.</p>
+                    <p><strong>Solution:</strong> Built Kubernetes operators using Go and Operator SDK. Automated deployment, scaling, and self-healing of stateful applications.</p>
+                    <p><strong>Impact:</strong> 99.9% uptime for critical services. Zero-downtime deployments. Reduced operational overhead by 60%.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Go</span>
+                        <span class="tech-tag">Kubernetes</span>
+                        <span class="tech-tag">Operator SDK</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skills Panel -->
+    <div class="response-panel" id="skillsPanel" role="dialog" aria-labelledby="skillsTitle" aria-hidden="true" data-agent="skills">
+        <div class="panel__header">
+            <button class="panel__back" onclick="closePanel()">← Back to Graph</button>
+            <div class="panel__actions">
+                <button class="panel__minimize" onclick="toggleMinimize('skillsPanel')" aria-label="Minimize">−</button>
+                <button class="panel__close" onclick="closePanel()" aria-label="Close">✕</button>
+            </div>
+        </div>
+
+        <div class="panel__metadata">
+            <div class="metadata__item">
+                <span class="metadata__label">Agent:</span>
+                <span class="metadata__value">⚡ Skills</span>
+            </div>
+            <div class="metadata__item">
+                <span class="metadata__label">Retrieved from:</span>
+                <span class="metadata__value">resume_data.yaml</span>
+            </div>
+            <div class="metadata__item">
+                <span class="metadata__label">Query:</span>
+                <span class="metadata__value">"skills"</span>
+            </div>
+            <div class="metadata__item">
+                <span class="metadata__label">Tokens:</span>
+                <span class="metadata__value">892</span>
+            </div>
+        </div>
+
+        <div class="panel__content">
+            <h2 id="skillsTitle" style="margin-bottom: var(--spacing-lg);">⚡ Technical Skills</h2>
+
+            <h3 style="color: var(--color-accent-tertiary); margin-bottom: var(--spacing-md);">Cloud & Platform</h3>
+            <div class="skill-bar">
+                <div class="skill-bar__label">Kubernetes</div>
+                <div class="skill-bar__track">
+                    <div class="skill-bar__fill" style="width: 95%;"></div>
+                </div>
+                <div class="skill-bar__percentage">95%</div>
+            </div>
+            <div class="skill-bar">
+                <div class="skill-bar__label">Google Cloud (GCP)</div>
+                <div class="skill-bar__track">
+                    <div class="skill-bar__fill" style="width: 90%;"></div>
+                </div>
+                <div class="skill-bar__percentage">90%</div>
+            </div>
+            <div class="skill-bar">
+                <div class="skill-bar__label">Terraform</div>
+                <div class="skill-bar__track">
+                    <div class="skill-bar__fill" style="width: 88%;"></div>
+                </div>
+                <div class="skill-bar__percentage">88%</div>
+            </div>
+
+            <h3 style="color: var(--color-accent-tertiary); margin: var(--spacing-xl) 0 var(--spacing-md);">Programming Languages</h3>
+            <div class="skill-bar">
+                <div class="skill-bar__label">Go</div>
+                <div class="skill-bar__track">
+                    <div class="skill-bar__fill" style="width: 92%;"></div>
+                </div>
+                <div class="skill-bar__percentage">92%</div>
+            </div>
+            <div class="skill-bar">
+                <div class="skill-bar__label">Python</div>
+                <div class="skill-bar__track">
+                    <div class="skill-bar__fill" style="width: 85%;"></div>
+                </div>
+                <div class="skill-bar__percentage">85%</div>
+            </div>
+            <div class="skill-bar">
+                <div class="skill-bar__label">JavaScript</div>
+                <div class="skill-bar__track">
+                    <div class="skill-bar__fill" style="width: 80%;"></div>
+                </div>
+                <div class="skill-bar__percentage">80%</div>
+            </div>
+
+            <h3 style="color: var(--color-accent-tertiary); margin: var(--spacing-xl) 0 var(--spacing-md);">DevOps & Tools</h3>
+            <div class="skill-bar">
+                <div class="skill-bar__label">CI/CD (GitHub Actions)</div>
+                <div class="skill-bar__track">
+                    <div class="skill-bar__fill" style="width: 90%;"></div>
+                </div>
+                <div class="skill-bar__percentage">90%</div>
+            </div>
+            <div class="skill-bar">
+                <div class="skill-bar__label">Docker</div>
+                <div class="skill-bar__track">
+                    <div class="skill-bar__fill" style="width: 93%;"></div>
+                </div>
+                <div class="skill-bar__percentage">93%</div>
+            </div>
+            <div class="skill-bar">
+                <div class="skill-bar__label">Git</div>
+                <div class="skill-bar__track">
+                    <div class="skill-bar__fill" style="width: 95%;"></div>
+                </div>
+                <div class="skill-bar__percentage">95%</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPanel = null;
+
+        function openPanel(type) {
+            closePanel(); // Close any open panel first
+
+            const panelId = type + 'Panel';
+            const panel = document.getElementById(panelId);
+            const backdrop = document.getElementById('panelBackdrop');
+
+            if (!panel) return;
+
+            currentPanel = panel;
+
+            // Show panel and backdrop
+            panel.classList.add('active');
+            panel.setAttribute('aria-hidden', 'false');
+            backdrop.classList.add('active');
+
+            // Focus trap
+            const firstFocusable = panel.querySelector('button');
+            if (firstFocusable) {
+                firstFocusable.focus();
+            }
+        }
+
+        function closePanel() {
+            if (!currentPanel) return;
+
+            currentPanel.classList.remove('active', 'minimized');
+            currentPanel.setAttribute('aria-hidden', 'true');
+            document.getElementById('panelBackdrop').classList.remove('active');
+
+            currentPanel = null;
+        }
+
+        function toggleMinimize(panelId) {
+            const panel = document.getElementById(panelId);
+            if (panel) {
+                panel.classList.toggle('minimized');
+            }
+        }
+
+        // Escape key to close
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && currentPanel) {
+                closePanel();
+            }
+        });
+
+        // Animate skill bars when panel opens
+        document.querySelectorAll('.skill-bar__fill').forEach(fill => {
+            fill.style.width = '0%';
+        });
+
+        function animateSkillBars() {
+            setTimeout(() => {
+                document.querySelectorAll('.skill-bar__fill').forEach(fill => {
+                    const targetWidth = fill.getAttribute('style').match(/width:\s*(\d+)%/)[1];
+                    fill.style.width = targetWidth + '%';
+                });
+            }, 100);
+        }
+
+        // Call animateSkillBars when skills panel opens
+        const originalOpenPanel = openPanel;
+        openPanel = function(type) {
+            originalOpenPanel(type);
+            if (type === 'skills') {
+                animateSkillBars();
+            }
+        };
+    </script>
+</body>
+</html>

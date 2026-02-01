@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Layout Test - AI Agent Architecture</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        .page-header {
+            text-align: center;
+            padding: var(--spacing-lg);
+            background: var(--color-bg-surface);
+            border-bottom: 1px solid var(--color-accent-tertiary);
+        }
+        .page-header h1 {
+            margin-bottom: var(--spacing-sm);
+        }
+        .page-header p {
+            color: var(--color-text-secondary);
+            margin: 0;
+        }
+        .layout-info {
+            position: fixed;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            background: var(--color-bg-elevated);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-accent-tertiary);
+            z-index: 1000;
+            font-family: var(--font-code);
+            font-size: var(--font-size-small);
+        }
+        .resize-hint {
+            text-align: center;
+            padding: var(--spacing-md);
+            background: rgba(0, 217, 255, 0.1);
+            color: var(--color-accent-primary);
+            font-size: var(--font-size-small);
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <h1>Agent Workflow Graph</h1>
+        <p>Resize your browser to see responsive layout changes</p>
+    </header>
+
+    <div class="resize-hint">
+        Desktop (1200px+): Force-Directed | Tablet (768-1199px): Grid | Mobile (<768px): Linear Stack
+    </div>
+
+    <div class="layout-info" id="layoutInfo">
+        Loading...
+    </div>
+
+    <!-- Main Graph Container -->
+    <div class="graph-container">
+        <!-- SVG for Edges (connections between nodes) -->
+        <svg class="graph-edges" id="graphEdges">
+            <!-- Edges will be drawn here via JavaScript -->
+        </svg>
+
+        <!-- Graph Nodes -->
+        <div class="graph-nodes">
+            <!-- Router Node (Entry Point) -->
+            <div class="node node--router"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Router Agent - What would you like to explore?"
+                 data-node="router">
+                <div class="node__icon">🎯</div>
+                <div class="node__text">
+                    <div class="node__label">Router</div>
+                    <div class="node__subtitle">What would you like to explore?</div>
+                </div>
+            </div>
+
+            <!-- Experience Agent -->
+            <div class="node node--experience"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Experience Agent - 14 years across 4 countries"
+                 data-node="experience">
+                <div class="node__icon">💼</div>
+                <div class="node__text">
+                    <div class="node__label">Experience</div>
+                    <div class="node__subtitle">14 years across 4 countries</div>
+                </div>
+            </div>
+
+            <!-- Projects Agent -->
+            <div class="node node--projects"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Projects Agent - Platform engineering and infrastructure"
+                 data-node="projects">
+                <div class="node__icon">🚀</div>
+                <div class="node__text">
+                    <div class="node__label">Projects</div>
+                    <div class="node__subtitle">Platform eng + Infrastructure</div>
+                </div>
+            </div>
+
+            <!-- Skills Agent -->
+            <div class="node node--skills"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Skills Agent - Cloud, Platform, Languages"
+                 data-node="skills">
+                <div class="node__icon">⚡</div>
+                <div class="node__text">
+                    <div class="node__label">Skills</div>
+                    <div class="node__subtitle">Cloud • Platform • Languages</div>
+                </div>
+            </div>
+
+            <!-- AI Tools Agent -->
+            <div class="node node--ai-tools"
+                 role="button"
+                 tabindex="0"
+                 aria-label="AI Tools Agent - Daily workflow and experiments"
+                 data-node="ai-tools">
+                <div class="node__icon">🤖</div>
+                <div class="node__text">
+                    <div class="node__label">AI Tools</div>
+                    <div class="node__subtitle">Daily workflow & experiments</div>
+                </div>
+            </div>
+
+            <!-- Contact Agent -->
+            <div class="node node--contact"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Contact Agent - Let's connect"
+                 data-node="contact">
+                <div class="node__icon">📧</div>
+                <div class="node__text">
+                    <div class="node__label">Contact</div>
+                    <div class="node__subtitle">Let's connect</div>
+                </div>
+            </div>
+
+            <!-- Vector Store (Data Source) -->
+            <div class="node node--vector-store"
+                 role="presentation"
+                 aria-label="Vector Store - resume_data.yaml"
+                 data-node="vector-store">
+                <div class="node__icon">📊</div>
+                <div class="node__text">
+                    <div class="node__label">Vector Store</div>
+                    <div class="node__subtitle">resume_data.yaml</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update layout info based on viewport size
+        function updateLayoutInfo() {
+            const width = window.innerWidth;
+            const layoutInfo = document.getElementById('layoutInfo');
+
+            let layout = '';
+            if (width >= 1200) {
+                layout = 'Desktop: Force-Directed Layout';
+            } else if (width >= 768) {
+                layout = 'Tablet: Grid Layout';
+            } else {
+                layout = 'Mobile: Linear Stack';
+            }
+
+            layoutInfo.textContent = `${layout} (${width}px)`;
+        }
+
+        // Node click handler (demo)
+        document.querySelectorAll('.node[role="button"]').forEach(node => {
+            node.addEventListener('click', () => {
+                const nodeName = node.getAttribute('data-node');
+                console.log('Node clicked:', nodeName);
+
+                // Demo: Toggle active state
+                node.classList.toggle('node--active');
+
+                // Remove active from other nodes
+                document.querySelectorAll('.node').forEach(n => {
+                    if (n !== node) {
+                        n.classList.remove('node--active');
+                    }
+                });
+            });
+        });
+
+        // Keyboard navigation
+        document.querySelectorAll('.node[role="button"]').forEach(node => {
+            node.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    node.click();
+                }
+            });
+        });
+
+        // Update layout info on load and resize
+        updateLayoutInfo();
+
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(updateLayoutInfo, 100);
+        });
+
+        // Simple edge drawing (placeholder - will be enhanced in Edge & Animation task)
+        function drawEdges() {
+            const svg = document.getElementById('graphEdges');
+
+            // Only draw edges on desktop/tablet (not mobile)
+            if (window.innerWidth < 768) {
+                svg.innerHTML = '';
+                return;
+            }
+
+            svg.innerHTML = ''; // Clear existing edges
+
+            const nodes = {
+                router: document.querySelector('[data-node="router"]'),
+                experience: document.querySelector('[data-node="experience"]'),
+                projects: document.querySelector('[data-node="projects"]'),
+                skills: document.querySelector('[data-node="skills"]'),
+                aiTools: document.querySelector('[data-node="ai-tools"]'),
+                contact: document.querySelector('[data-node="contact"]'),
+                vectorStore: document.querySelector('[data-node="vector-store"]')
+            };
+
+            // Helper to get center coordinates of a node
+            function getCenter(node) {
+                const rect = node.getBoundingClientRect();
+                const containerRect = svg.getBoundingClientRect();
+                return {
+                    x: rect.left + rect.width / 2 - containerRect.left,
+                    y: rect.top + rect.height / 2 - containerRect.top
+                };
+            }
+
+            // Draw edges (simplified)
+            const connections = [
+                ['router', 'experience'],
+                ['router', 'projects'],
+                ['router', 'skills'],
+                ['experience', 'vectorStore'],
+                ['projects', 'vectorStore'],
+                ['skills', 'vectorStore'],
+                ['aiTools', 'vectorStore'],
+                ['contact', 'vectorStore']
+            ];
+
+            connections.forEach(([from, to]) => {
+                const fromNode = nodes[from];
+                const toNode = nodes[to];
+
+                if (!fromNode || !toNode) return;
+
+                const start = getCenter(fromNode);
+                const end = getCenter(toNode);
+
+                // Create simple line
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', start.x);
+                line.setAttribute('y1', start.y);
+                line.setAttribute('x2', end.x);
+                line.setAttribute('y2', end.y);
+                line.setAttribute('stroke', '#06b6d4');
+                line.setAttribute('stroke-width', '2');
+                line.setAttribute('stroke-opacity', '0.3');
+                line.setAttribute('stroke-dasharray', '5,5');
+
+                svg.appendChild(line);
+            });
+        }
+
+        // Draw edges after layout settles
+        setTimeout(drawEdges, 100);
+
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(drawEdges, 300);
+        });
+    </script>
+</body>
+</html>
