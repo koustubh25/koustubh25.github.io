@@ -27,6 +27,9 @@ const appState = {
 function initApp() {
     console.log('Initializing portfolio application...');
 
+    // Performance measurement
+    PerformanceMonitor.mark('app-init-start');
+
     // Check reduced motion preference
     appState.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -41,6 +44,9 @@ function initApp() {
 
     // Announce app ready to screen readers
     announceToScreenReader('Portfolio loaded. Navigate nodes with Tab and Enter keys.');
+
+    PerformanceMonitor.mark('app-init-end');
+    PerformanceMonitor.measure('app-initialization', 'app-init-start', 'app-init-end');
 
     console.log('Portfolio application initialized');
 }
@@ -263,17 +269,18 @@ function setupEventListeners() {
         }
     });
 
-    // Window resize
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            updateLayout();
-            if (window.edgeSystem) {
-                window.edgeSystem.drawAllEdges();
-            }
-        }, 300);
-    });
+    // Window resize (debounced for performance)
+    const debouncedResize = debounce(() => {
+        PerformanceMonitor.mark('resize-start');
+        updateLayout();
+        if (window.edgeSystem) {
+            window.edgeSystem.drawAllEdges();
+        }
+        PerformanceMonitor.mark('resize-end');
+        PerformanceMonitor.measure('resize-layout', 'resize-start', 'resize-end');
+    }, 300);
+
+    window.addEventListener('resize', debouncedResize);
 }
 
 // ==============================================
@@ -305,6 +312,9 @@ async function handleNodeClick(nodeElement, skipHistory = false) {
 
     console.log(`Node clicked: ${nodeType}`);
     appState.animationInProgress = true;
+
+    // Performance measurement
+    PerformanceMonitor.mark('node-click-start');
 
     try {
         // Close existing panel if open
@@ -345,6 +355,10 @@ async function handleNodeClick(nodeElement, skipHistory = false) {
 
         // Announce to screen readers
         announceToScreenReader(`Opened ${nodeType} agent panel`);
+
+        // Performance measurement
+        PerformanceMonitor.mark('node-click-end');
+        PerformanceMonitor.measure('node-interaction', 'node-click-start', 'node-click-end');
 
     } catch (error) {
         console.error('Error in node click handler:', error);
@@ -577,6 +591,77 @@ function handleInitialRoute() {
 function wait(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+/**
+ * Debounce function - delays execution until after wait period of inactivity
+ */
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+/**
+ * Throttle function - ensures function is called at most once per wait period
+ */
+function throttle(func, wait) {
+    let inThrottle;
+    return function executedFunction(...args) {
+        if (!inThrottle) {
+            func(...args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, wait);
+        }
+    };
+}
+
+/**
+ * Performance measurement utility
+ */
+const PerformanceMonitor = {
+    mark(name) {
+        if ('performance' in window && performance.mark) {
+            performance.mark(name);
+        }
+    },
+
+    measure(name, startMark, endMark) {
+        if ('performance' in window && performance.measure) {
+            try {
+                performance.measure(name, startMark, endMark);
+                const measure = performance.getEntriesByName(name)[0];
+
+                // Log in development mode (check for localhost)
+                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                    console.log(`⏱️ ${name}: ${measure.duration.toFixed(2)}ms`);
+                }
+
+                return measure.duration;
+            } catch (e) {
+                console.warn('Performance measurement failed:', e);
+            }
+        }
+        return 0;
+    },
+
+    clearMarks(name) {
+        if ('performance' in window && performance.clearMarks) {
+            performance.clearMarks(name);
+        }
+    },
+
+    clearMeasures(name) {
+        if ('performance' in window && performance.clearMeasures) {
+            performance.clearMeasures(name);
+        }
+    }
+};
 
 /**
  * Announce to screen readers
